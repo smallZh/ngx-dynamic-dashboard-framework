@@ -57,3 +57,8 @@ crashlytics-build.properties
 fabric.properties
 
 documentation/
+
+# yarn
+yarn-error.log
+
+/**/.DS_Store
