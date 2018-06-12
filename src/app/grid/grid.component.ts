@@ -6,7 +6,9 @@ import {AddGadgetService} from '../add-gadget/service';
 import {ToastService} from '../toast/toast.service';
 import {MenuEventService} from '../menu/menu-service';
 
-
+/**
+ * 网格组件, 按照 某种布局 显示 卡片组件
+ */
 @Component({
     moduleId: module.id,
     selector: 'app-grid-component',
@@ -14,22 +16,30 @@ import {MenuEventService} from '../menu/menu-service';
     styleUrls: ['./styles-grid.css']
 })
 export class GridComponent {
+
+    //定义 面板更新事件 ?
     @Output() boardUpdateEvent: EventEmitter<any> = new EventEmitter();
 
+    //面板的配置对象, json对象
     model: any = {};
+
+    //是否有卡片 组件, 默认为 true,即: 无卡片组件
     noGadgets = true;
+
+    //?
     dashedStyle: {};
+
     dropZone1: any = null;
     dropZone2: any = null;
     dropZone3: any = null;
 
+    //?
     gadgetLibrary: any[] = [];
 
-    /** todo
+    /** todo ??
      * Temporary objects for experimenting with AI
      * @type
      */
-
     gridInsertionPosition = {
         x: 0,
         y: 0
@@ -55,12 +65,17 @@ export class GridComponent {
 
     }
 
+    /**
+     * 设置事件 定于 服务, 主要 订阅 菜单 中的 服务
+     */
     setupEventListeners() {
 
+        //监听 卡片组件 移除事件
         this._gadgetInstanceService.listenForInstanceRemovedEventsFromGadgets().subscribe((message: string) => {
             this.saveBoard('Gadget Removed From Board: ' + message, false);
         });
 
+        //监听 菜单事件服务
         this._menuEventService.listenForMenuEvents().subscribe((event: IEvent) => {
             const edata = event['data'];
 
@@ -416,6 +431,11 @@ export class GridComponent {
         this.updateGridState();
     }
 
+    /**
+     * 保存 面板
+     * @param operation 为使用
+     * @param alertBoardListenerThatTheMenuShouldBeUpdated ?
+     */
     private saveBoard(operation: string, alertBoardListenerThatTheMenuShouldBeUpdated: boolean) {
 
         this.updateServicesAndGridWithModel();

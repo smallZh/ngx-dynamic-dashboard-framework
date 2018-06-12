@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {RoutingModule} from './routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
-import {DetailModule} from './detail/detail.module';
+import {DetailModule} from './detail/detail.module'; // 无用
 import {MenuModule} from './menu/menu.module';
 import {BoardModule} from './board/board.module';
 
