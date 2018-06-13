@@ -9,6 +9,7 @@ import {
 
 /**
  * Created by jayhamilton on 7/11/17.
+ * 卡片组件 新增对话框, 分类、标签组件
  */
 @Component({
     moduleId: module.id,
@@ -75,8 +76,11 @@ import {
     ]
 })
 export class FacetComponent implements OnInit {
+    //标签选中, 触发事件
     @Output() tagSelectEvent: EventEmitter<any> = new EventEmitter();
+    //每一个 分类 数据
     @Input() facet: Facet;
+    //是否 展开
     @Input() openFacet: boolean;
 
     facetOpen: string;
@@ -92,11 +96,17 @@ export class FacetComponent implements OnInit {
         }
     }
 
+    /**
+     * 展开、折叠 分类
+     */
     toggleAccordion() {
         this.facetOpen = this.facetOpen === 'out' ? 'in' : 'out';
-
     }
 
+    /**
+     * 触发 标签选中
+     * @param tagName
+     */
     tagSelect(tagName) {
         this.tagSelectEvent.emit(tagName);
     }

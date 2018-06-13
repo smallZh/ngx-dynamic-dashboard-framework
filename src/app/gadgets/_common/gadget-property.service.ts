@@ -7,12 +7,20 @@ import {CheckboxProperty} from '../../dynamic-form/property-checkbox';
 import {DynamicDropdownProperty} from '../../dynamic-form/property-dynamicdropdown';
 import {NumberProperty} from '../../dynamic-form/property-number';
 
+/**
+ * 卡片 组件 属性处理服务
+ */
 @Injectable()
 export class GadgetPropertyService {
 
     constructor() {
     }
 
+    /**
+     * 将 配置对象中的 json 数据 转换为对应 的 对象
+     * @param defaultProperties
+     * @param properties
+     */
     setPropertiesAndValues(defaultProperties: any[], properties: PropertyBase<any>[]) {
         let ctrl: PropertyBase<any>;
 
@@ -45,6 +53,11 @@ export class GadgetPropertyService {
         properties.sort((a, b) => a.order - b.order);
     }
 
+    /**
+     * 将属性 转换为 配置页
+     * @param defaultPropertyPages
+     * @param propertyPages
+     */
     setPropertyPagesAndProperties(defaultPropertyPages: any[], propertyPages: any[]) {
 
         const me = this;

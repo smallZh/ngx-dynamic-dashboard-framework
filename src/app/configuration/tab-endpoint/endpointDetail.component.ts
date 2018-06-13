@@ -1,5 +1,6 @@
 /**
  * Created by jayhamilton on 5/16/17.
+ * 编辑 EndPoint的 表单
  */
 import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
@@ -16,14 +17,18 @@ import {ToastService} from '../../toast/toast.service';
 })
 export class EndPointDetailComponent implements OnChanges {
 
+    //当前 的 EndPoint
     @Input() currentEndPoint: EndPoint;
 
+    //创建、修改、删除 事件监听器
     @Output() createEvent: EventEmitter<EndPoint> = new EventEmitter();
     @Output() updateEvent: EventEmitter<EndPoint> = new EventEmitter();
     @Output() deleteEvent: EventEmitter<EndPoint> = new EventEmitter();
 
+    //当前 状态
     currentState: string;
 
+    //对应表单
     endPointForm: FormGroup;
     credentialScheme = credentialScheme;
 
@@ -48,7 +53,7 @@ export class EndPointDetailComponent implements OnChanges {
 
         this.createForm();
         const me = this;
-        this.endPointForm.valueChanges.forEach(
+        this.endPointForm.valueChanges.forEach( //设置当前状态, 遍历 表单中的 每一个 值
             (value => {
                 if (this.currentState !== 'create') {
                     me.setFormState();
@@ -57,6 +62,9 @@ export class EndPointDetailComponent implements OnChanges {
         );
     }
 
+    /**
+     * 设置form 状态
+     */
     setFormState() {
 
         /**
@@ -80,6 +88,9 @@ export class EndPointDetailComponent implements OnChanges {
         }
     }
 
+    /**
+     * 动态创建 表单组件
+     */
     createForm() {
 
         this.endPointForm = this.fb.group({
@@ -97,6 +108,9 @@ export class EndPointDetailComponent implements OnChanges {
 
     }
 
+    /**
+     * 保存 EndPoint
+     */
     createEndPoint() {
 
         const ep: EndPoint = new EndPoint(
@@ -115,6 +129,9 @@ export class EndPointDetailComponent implements OnChanges {
         this.currentState = 'reset';
     }
 
+    /**
+     * 更新 EndPoint
+     */
     updateEndPoint() {
 
         this.currentEndPoint.name = this.endPointForm.value.name;
@@ -131,6 +148,9 @@ export class EndPointDetailComponent implements OnChanges {
         this.currentState = 'reset';
     }
 
+    /**
+     * 新创建 一个 EndPoint
+     */
     newEndPoint() {
         this.endPointForm.reset();
         /**
@@ -140,11 +160,17 @@ export class EndPointDetailComponent implements OnChanges {
         this.currentState = 'create';
     }
 
+    /**
+     * 重置
+     */
     resetEndPoint() {
         this.ngOnChanges();
 
     }
 
+    /**
+     * 删除
+     */
     deleteEndPoint() {
 
         this.deleteEvent.emit(this.currentEndPoint);

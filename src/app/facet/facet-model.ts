@@ -1,3 +1,6 @@
+/**
+ * 卡片组件 标签的集合 称为一个 面, 其实 等同于 分类
+ */
 export class Facet {
     name: string;
     tags: Array<Tag>;
@@ -9,6 +12,9 @@ export class Facet {
     }
 }
 
+/**
+ * 卡片组件 所属于的标签
+ */
 export class Tag {
     name: string;
     count: number;

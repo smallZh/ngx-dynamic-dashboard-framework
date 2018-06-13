@@ -16,8 +16,8 @@ import {DonutGadgetComponent} from '../gadgets/donut/donut-gadget.component';
 import {TodoGadgetComponent} from '../gadgets/todo/todo-gadget.component';
 /**
  * Created by jayhamilton on 6/30/17.
+ * 卡片组件 工厂,用于 动态创建 卡片组件
  */
-
 export class GadgetFactory {
 
 

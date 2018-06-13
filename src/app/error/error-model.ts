@@ -1,5 +1,6 @@
 /**
  * Created by jayhamilton on 6/22/17.
+ * 错误组件 使用的 数据模型
  */
 export class ErrorObject {
     detail: string;

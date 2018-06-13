@@ -72,6 +72,10 @@ export class StorageObjectListComponent extends GadgetBase {
         this.setStopState(false);
     }
 
+    /**
+     * 更新 卡片组件的 数据
+     * @param data
+     */
     public updateData(data: any[]) {
 
         this._storageService.get().subscribe(item => {
@@ -85,6 +89,10 @@ export class StorageObjectListComponent extends GadgetBase {
             error => this.handleError(error));
     }
 
+    /**
+     * 更新表单的属性
+     * @param updatedProperties
+     */
     public updateProperties(updatedProperties: any) {
 
         /**

@@ -57,7 +57,7 @@ export class MenuComponent implements OnInit {
     placeHolderText = 'Ask the board to do something!';
 
 
-    searchList: Array<string> = [];
+    searchList: Array<string> = []; // 用于搜索组件 查看卡片组件
 
     //菜单栏 折叠 还是 展开的 标示符
     detailMenuOpen = 'out';
@@ -171,6 +171,10 @@ export class MenuComponent implements OnInit {
     }
 
 
+    /**
+     * 搜索组件 触发 添加 卡片组件
+     * @param event
+     */
     emitBoardAIAddGadgetEvent(event) {
         this._menuEventService.raiseMenuEvent({name: 'boardAIAddGadgetEvent', data: event});
     }
@@ -234,6 +238,7 @@ export class MenuComponent implements OnInit {
         this.layoutSideBar = jQuery(this.layoutSideBarRef.nativeElement);
         this.layoutSideBar.sidebar('setting', 'transition', 'overlay');
         this.layoutSideBar.sidebar('toggle');
+        //读取当前 面板 配置中 使用的 布局id
         this.layoutId = this._configurationService.currentModel.id;
     }
 

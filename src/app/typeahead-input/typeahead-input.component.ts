@@ -3,8 +3,9 @@ import {RuntimeService} from '../services/runtime.service';
 
 /**
  * Created by jayhamilton on 2/26/17.
+ *
+ * 搜索组件
  */
-
 @Component({
     moduleId: module.id,
     selector: 'app-typeahead-input',
@@ -13,17 +14,20 @@ import {RuntimeService} from '../services/runtime.service';
 })
 export class TypeAheadInputComponent {
 
+    //菜单组件、卡片列表组件 用于 进行 搜索的 内容
     @Input() searchList: string[];
-    @Input() placeHolderText;
+    @Input() placeHolderText; //占位符内容
     @Input() typeAheadIsInMenu: boolean;
+    //选择其中的 事件触发器
     @Output() selectionEvent = new EventEmitter<string>();
     @Output() ArtificialIntelligenceEventEmitter: EventEmitter<any> = new EventEmitter<any>();
 
     requestCounter = 0;
     maxAttempts = 5;
 
+    //查询字符串
     public query = '';
-    public filteredList = [];
+    public filteredList = []; //用于过滤使用
     public elementRef;
 
     constructor(myElement: ElementRef, private _runtimeService: RuntimeService) {
@@ -31,6 +35,9 @@ export class TypeAheadInputComponent {
 
     }
 
+    /**
+     * 执行 查询过滤
+     */
     filter() {
         if (this.query !== '') {
             this.filteredList = this.searchList.filter(function (el) {
@@ -55,6 +62,10 @@ export class TypeAheadInputComponent {
         this.selectionEvent.emit(item);
     }
 
+    /**
+     * 每5个 字符 进行 一次处理 判断,验证 是否 有 两种接口, 从接口中返回 组件
+     * @param aiStatement
+     */
     processAIString(aiStatement: string) {
 
         console.log('Processing statement: ' + aiStatement);

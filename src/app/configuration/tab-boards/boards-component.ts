@@ -26,6 +26,8 @@ declare var jQuery: any;
  *      popMessageModal - display a message modal for a sepcified duration
  *      showMessageModal - show the message modal
  *      hideMessageModal - hide the message modal
+ *
+ * 面板 配置 对话框 组件
  */
 @Component({
     selector: 'app-board-configuration-modal',
@@ -50,23 +52,34 @@ declare var jQuery: any;
 })
 export class BoardsComponent implements AfterViewInit {
 
+    //面板创建 事件触发器
     @Output() dashboardCreateEvent: EventEmitter<any> = new EventEmitter();
+    //面板编辑 事件触发器  暂未使用
     @Output() dashboardEditEvent: EventEmitter<any> = new EventEmitter();
+    //面板删除 事件派发器
     @Output() dashboardDeleteEvent: EventEmitter<any> = new EventEmitter();
+
+    //面板 标题名称 列表
     @Input() dashboardList: any [];
 
 
+    //新的面板的 标题
     newDashboardItem = '';
 
 
     modalicon: string;
+    //对话框的 标题头
     modalheader: string;
     modalconfig: string;
 
+    //对话框的 ng引用
     @ViewChild('boardconfigmodal_tag') boardconfigmodalaRef: ElementRef;
+    //对话框的 jQuery引用
     configModal: any;
+
+    //当前的 tab 面板 的 标题
     currentTab: string;
-    tabsModel: any[];
+    tabsModel: any[]; //全部支持的 tab面板
 
     constructor(private _configurationService: ConfigurationService) {
 
@@ -93,6 +106,10 @@ export class BoardsComponent implements AfterViewInit {
 
     }
 
+    /**
+     * 菜单组件 调用 打开 该对话框
+     * @param header
+     */
     showBoardConfigurationModal(header: string) {
         this.modalheader = header;
         this.configModal.modal('show');
@@ -105,6 +122,10 @@ export class BoardsComponent implements AfterViewInit {
         this.configModal.modal('hide');
     }
 
+    /**
+     * 创建 面板
+     * @param name
+     */
     createBoard(name: string) {
         if (name !==  '') {
             this.dashboardCreateEvent.emit(name);
@@ -116,16 +137,25 @@ export class BoardsComponent implements AfterViewInit {
         this.dashboardEditEvent.emit(name);
     }
 
+    /**
+     * 删除面板
+     * @param name
+     */
     deleteBoard(name: string) {
         this.dashboardDeleteEvent.emit(name);
     }
 
 
     ngAfterViewInit() {
+        //jQuery 对象化 对话框组件
         this.configModal = jQuery(this.boardconfigmodalaRef.nativeElement);
         this.configModal.modal('hide');
     }
 
+    /**
+     * 设置默认的 tab 面板
+     * @param tab_index
+     */
     setCurrentTab(tab_index) {
         this.currentTab = this.tabsModel[tab_index].displayName;
     }

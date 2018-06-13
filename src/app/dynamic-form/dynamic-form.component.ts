@@ -17,7 +17,9 @@ import {ConfigurationService} from '../services/configuration.service';
 import {EndPointService} from '../configuration/tab-endpoint/endpoint.service';
 import {EndPoint} from '../configuration/tab-endpoint/endpoint.model';
 
-
+/**
+ * 卡片组件 配置页面的 表单
+ */
 @Component({
     /* solves error: Expression has changed after it was checked exception resolution - https://www.youtube.com/watch?v=K_BRcal-JfI*/
     // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,9 +55,12 @@ import {EndPoint} from '../configuration/tab-endpoint/endpoint.model';
 })
 export class DynamicFormComponent implements OnInit, AfterViewInit {
 
+    //通过属性 配置页 设成 tab面板 和 form表单中的内容
     @Input() propertyPages: any[];
-    @Input() instanceId: number;
+    @Input() instanceId: number; //实例的id
+    //属性 更新 事件源
     @Output() updatePropertiesEvent: EventEmitter<any> = new EventEmitter(true);
+
     currentTab = 'run';
     endPoints: EndPoint[];
     state = 'inactive';
@@ -73,6 +78,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         this.updateEndPointList();
     }
 
+    /**
+     * 更新 EndPoint 列表, 用于下拉选择 EndPoint API 接口
+     */
     updateEndPointList() {
 
         this.endPointService.getEndPoints().subscribe(data => {
@@ -92,6 +100,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
     }
 
+    /**
+     * 保存配置 表单中的 数据
+     */
     onSubmit() {
 
         this.payLoad = JSON.stringify(this.form.value);
@@ -111,6 +122,10 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         }
     }
 
+    /**
+     * 设置 tab面板的选中值
+     * @param tab
+     */
     setCurrentTab(tab) {
         this.currentTab = tab.groupId;
 

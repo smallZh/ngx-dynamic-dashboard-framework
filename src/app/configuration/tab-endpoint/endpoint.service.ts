@@ -8,7 +8,9 @@ import {Subject} from 'rxjs/Subject';
 import {EndPoint} from './endpoint.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-
+/**
+ * 给 EndPoint组件 提供 EndPoint 数据
+ */
 @Injectable()
 export class EndPointService {
 
@@ -19,6 +21,10 @@ export class EndPointService {
     constructor(private _http: HttpClient) {
     }
 
+    /**
+     * 获取 EndPoint数据
+     * @returns {any}
+     */
     getEndPoints() {
 
         if (this.demo) {
@@ -60,10 +66,19 @@ export class EndPointService {
         }
     }
 
+    /**
+     * 删除 全部的 EndPoint
+     * @returns {Observable<Object>}
+     */
     deleteEndPoint() {
         return this._http.delete(this.localStore + '/' + 'endpoint');
     }
 
+    /**
+     * 存储 全部EndPoint
+     * @param endpoint
+     * @returns {any}
+     */
     saveEndPoint(endpoint: any) {
 
         if (this.demo) {

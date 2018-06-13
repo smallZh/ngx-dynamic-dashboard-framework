@@ -1,5 +1,6 @@
 /**
  * Created by jayhamilton on 2/3/17.
+ * 卡片组件 配置表单 的 基础 属性
  */
 export class PropertyBase<T> {
     value: T;

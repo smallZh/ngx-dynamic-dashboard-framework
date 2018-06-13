@@ -2,6 +2,8 @@ import {ErrorObject, SolutionObject} from './error-model';
 
 /**
  * Created by jayhamilton on 7/5/17.
+ *
+ * 错误消息生成器, 生成 ErrorObject 对象
  */
 export class ErrorHandler {
 

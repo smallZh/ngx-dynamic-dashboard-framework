@@ -29,6 +29,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
     `,
 })
 export class GadgetOperationComponent {
+    //停止和 启动 事件源
     @Output() runEvent: EventEmitter<any> = new EventEmitter();
     @Output() stopEvent: EventEmitter<any> = new EventEmitter();
 
@@ -39,10 +40,12 @@ export class GadgetOperationComponent {
     @Input() gadgetHasOperationControls: boolean;
 
 
+    //发送启动事件
     run() {
         this.runEvent.emit();
     }
 
+    //发送停止事件
     stop() {
         this.stopEvent.emit();
     }

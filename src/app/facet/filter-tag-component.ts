@@ -5,6 +5,7 @@ import {
 } from '@angular/animations';
 /**
  * Created by jayhamilton on 6/27/17.
+ * 卡片组件的 标签组件
  */
 @Component({
     moduleId: module.id,
@@ -36,13 +37,19 @@ import {
 })
 export class FilterTagComponent {
 
+    //触发 标签变化 事件
     @Output() updateFilterListEvent = new EventEmitter<any>();
 
+    //标签列表
     filterList: Array<string> = [];
 
     constructor() {
     }
 
+    /**
+     * 更新过来列表, 由 filterList组件进行调用
+     * @param filter
+     */
     updateFilterList(filter) {
 
         filter = filter.toLocaleLowerCase();

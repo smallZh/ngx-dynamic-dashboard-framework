@@ -12,14 +12,19 @@ import {DynamicFormComponent} from '../../dynamic-form/dynamic-form.component';
  */
 
 export abstract class GadgetBase implements IGadget, OnDestroy, OnInit, AfterViewInit {
+    //页面动态表单
     @ViewChild(DynamicFormComponent) propertyPageForm: DynamicFormComponent;
     title: string;
+    //组件实例的id
     instanceId: number;
+
     config: any;
 
     /**
      * Used to determine when to show the controls that appear in the gadgets
      * heading area. This is set by the mouseover/mouseout events.
+     *
+     * 设置 配置条是否 显示
      * @type {boolean}
      */
     showControls = false;
@@ -68,7 +73,11 @@ export abstract class GadgetBase implements IGadget, OnDestroy, OnInit, AfterVie
      */
     showConfigurationControl = true;
 
-    // internally controls dynamic form properties
+    /**
+     * internally controls dynamic form properties
+     * 设置 动态表单的 属性页
+     * @type {Array}
+     */
     propertyPages: any[] = [];
 
     endpointObject: EndPoint;
@@ -111,6 +120,9 @@ export abstract class GadgetBase implements IGadget, OnDestroy, OnInit, AfterVie
 
     }
 
+    /**
+     * 展开、折叠 配置表单
+     */
     public toggleConfigMode() {
 
         if (!this.inConfig) {
@@ -120,6 +132,9 @@ export abstract class GadgetBase implements IGadget, OnDestroy, OnInit, AfterVie
         this.inConfig = !this.inConfig;
     }
 
+    /**
+     * 初始化 卡片表单属性
+     */
     public initializeProperties() {
 
         if (this.propertyPages.length === 0 && this.config.propertyPages) {
@@ -127,16 +142,38 @@ export abstract class GadgetBase implements IGadget, OnDestroy, OnInit, AfterVie
         }
     }
 
+    /**
+     * 交由具体的组件实现
+     */
     public abstract run(): void
 
+    /**
+     * 交由具体的组件实现
+     */
     public abstract stop(): void
 
+    /**
+     * 交由具体的组件实现
+     * @param updatedProperties
+     */
     public abstract updateProperties(updatedProperties: any): void
 
+    /**
+     * 交由具体的组件实现
+     * @param data
+     */
     public abstract updateData(data: any[]): void
 
+    /**
+     * 交由具体的组件实现
+     */
     public abstract preRun(): void
 
+    /**
+     * 处理错误
+     * 基类实现的 组件中 进行错误调用
+     * @param error
+     */
     public handleError(error: ErrorObject) {
 
 
@@ -173,10 +210,17 @@ export abstract class GadgetBase implements IGadget, OnDestroy, OnInit, AfterVie
 
     }
 
+    /**
+     * 卡片组件 顶部 工具栏 中 删除按钮 事件处理
+     */
     public remove() {
         this._gadgetInstanceService.removeInstance(this.instanceId);
     }
 
+    /**
+     * 设置 配置工具栏的 隐藏、显示
+     * @param enable
+     */
     public showGadgetControls(enable: boolean) {
         this.showControls = enable;
     }

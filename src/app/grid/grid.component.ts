@@ -20,7 +20,7 @@ export class GridComponent {
     //定义 面板更新事件 ?
     @Output() boardUpdateEvent: EventEmitter<any> = new EventEmitter();
 
-    //面板的配置对象, json对象
+    //面板的配置对象, json对象, GadgetInstanceService 服务中已经存储, 此处 model 用于 页面模板 中的 数据双向绑定
     model: any = {};
 
     //是否有卡片 组件, 默认为 true,即: 无卡片组件
@@ -33,7 +33,7 @@ export class GridComponent {
     dropZone2: any = null;
     dropZone3: any = null;
 
-    //?
+    //? 不清楚 作用
     gadgetLibrary: any[] = [];
 
     /** todo ??
@@ -106,7 +106,7 @@ export class GridComponent {
     }
 
     /**
-     *
+     * 该代码暂时 并未使用,不清楚作用
      * This is experimental code that deals with AI
      */
     getGadgetLibrary() {
@@ -134,6 +134,7 @@ export class GridComponent {
         return gadgetObject;
     }
 
+    //??
     addGadgetUsingArtificialIntelligence(aiObject: any) {
 
         console.log('In add gadget component');
@@ -192,14 +193,26 @@ export class GridComponent {
         });
     }
 
+    /**
+     * 根据 标题 创建 面板
+     * @param name
+     */
     public createBoard(name: string) {
         this.loadNewBoard(name);
     }
 
+    /**
+     * 编辑 面板 , 暂时 并未实现, 修改 面板的标题
+     * @param name
+     */
     public editBoard(name: string) {
 
     }
 
+    /**
+     * 删除面板, 删除面板 配置对象
+     * @param name
+     */
     public deleteBoard(name: string) {
 
         this._configurationService.deleteBoard(name).subscribe(data => {
@@ -212,6 +225,10 @@ export class GridComponent {
 
     }
 
+    /**
+     * 添加卡片 组件
+     * @param gadget 配置数据对象 结构?
+     */
     public addGadget(gadget: any) {
 
         const _gadget = Object.assign({}, gadget);
@@ -234,6 +251,10 @@ export class GridComponent {
 
     }
 
+    /**
+     * 更新面板布局
+     * @param structure
+     */
     public updateBoardLayout(structure) {
 
         console.log('UPDATING LAYOUT');
@@ -272,7 +293,7 @@ export class GridComponent {
         // This will copy the just processed model and present it to the board
         this.setModel(_model);
 
-        // clear temporary object
+        // clear temporary object ?? 为什么清空对象? 作用域结束,不就 没了吗?
         for (const member in  _model) {
             delete  _model[member];
         }
@@ -281,8 +302,12 @@ export class GridComponent {
         this.saveBoard('Grid Layout Update', false);
     }
 
+    /**
+     * 更新 网格组件 的 样式
+     */
     private updateGridState() {
 
+        //仅仅 只是 判断 是否 有 卡片组件?
         let gadgetCount = 0;
 
         if (this.getModel().rows) {
@@ -307,6 +332,11 @@ export class GridComponent {
         };
     }
 
+    /**
+     * 从 面板 配置对象 中 读取 列
+     * @param _model 面板配置对象
+     * @returns {Array} 返回全部的 列
+     */
     private readColumnsFromOriginalModel(_model) {
 
         const columns = [];
@@ -319,6 +349,13 @@ export class GridComponent {
 
     }
 
+    /**
+     * 填充 网格组件 的  结构
+     * @param destinationModelStructure
+     * @param originalColumns
+     * @param counter
+     * @returns {number}
+     */
     private fillGridStructure(destinationModelStructure, originalColumns: any[], counter: number) {
 
         const me = this;
@@ -341,6 +378,11 @@ export class GridComponent {
 
     }
 
+    /**
+     * 将 原来布局中的 组件 复制到 目标组件
+     * @param source
+     * @param target
+     */
     private copyGadgets(source, target) {
 
         if (source.gadgets && source.gadgets.length > 0) {
@@ -357,6 +399,9 @@ export class GridComponent {
         this._gadgetInstanceService.enableConfigureMode();
     }
 
+    /**
+     * 初始化 面板信息
+     */
     private initializeBoard() {
 
         this._configurationService.getBoards().subscribe(board => {
@@ -375,6 +420,10 @@ export class GridComponent {
         });
     }
 
+    /**
+     * 根据 面板 标题 加载 对应的 面板
+     * @param boardTitle
+     */
     private loadBoard(boardTitle: string) {
 
         this.clearGridModelAndGadgetInstanceStructures();
@@ -393,6 +442,9 @@ export class GridComponent {
 
     }
 
+    /**
+     * 加载默认的 面板
+     */
     private loadDefaultBoard() {
 
         this.clearGridModelAndGadgetInstanceStructures();
@@ -408,6 +460,10 @@ export class GridComponent {
         });
     }
 
+    /**
+     * 加载 新的面板, 使用 默认的 面板进行初始化
+     * @param name
+     */
     private loadNewBoard(name: string) {
 
         this.clearGridModelAndGadgetInstanceStructures();
@@ -425,6 +481,14 @@ export class GridComponent {
         });
     }
 
+    /**
+     * 更新 面板的 配置数据
+     *
+     * 同时更新 GadgetInstanceService 服务中 model 对象
+     * 同时更新 ConfigurationService 服务中 model 对象
+     *
+     * 当删除一个 卡片组件时, 会同步更新 grid网格组件中  的 model
+     */
     private updateServicesAndGridWithModel() {
         this._gadgetInstanceService.setCurrentModel(this.getModel());
         this._configurationService.setCurrentModel(this.getModel());
@@ -433,7 +497,7 @@ export class GridComponent {
 
     /**
      * 保存 面板
-     * @param operation 为使用
+     * @param operation 未使用
      * @param alertBoardListenerThatTheMenuShouldBeUpdated ?
      */
     private saveBoard(operation: string, alertBoardListenerThatTheMenuShouldBeUpdated: boolean) {
@@ -453,6 +517,9 @@ export class GridComponent {
 
     }
 
+    /**
+     * 清空全部的 卡片组件
+     */
     private clearGridModelAndGadgetInstanceStructures() {
 // clear gadgetInstances
         this._gadgetInstanceService.clearAllInstances();
@@ -464,6 +531,11 @@ export class GridComponent {
         }
     }
 
+    /**
+     * 设置 卡片组件 插入的位置
+     * 横坐标x 为 row 索引
+     * 纵坐标y 为 column 索引
+     */
     private setGadgetInsertPosition() {
 
         for (let x = 0; x < this.getModel().rows.length; x++) {

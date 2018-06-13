@@ -1,3 +1,6 @@
+/**
+ * http 接口信息抽象
+ */
 export class EndPoint {
     public id: number;
     public name: string;

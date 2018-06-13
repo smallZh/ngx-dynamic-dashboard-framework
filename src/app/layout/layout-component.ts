@@ -33,8 +33,10 @@ export class BoardLayoutManagerComponent implements AfterViewInit {
     @Input() layoutId;
     @Output() boardLayoutChangeEvent: EventEmitter<any> = new EventEmitter();
 
+    //全部的 布局
     boardLayouts: any[];
 
+    //布局组件显示 的 标题头
     modalHeader = 'Layout';
 
     messageModal: any;
@@ -59,6 +61,9 @@ export class BoardLayoutManagerComponent implements AfterViewInit {
 
     }
 
+    /**
+     * 初始化默认的全部布局
+     */
     initializeLayouts() {
 
         Object.assign(this, {boardLayouts});

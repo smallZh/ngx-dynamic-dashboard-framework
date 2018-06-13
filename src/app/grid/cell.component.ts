@@ -2,10 +2,11 @@ import {Component, Input, ViewContainerRef, OnInit, ComponentFactoryResolver} fr
 import {GadgetInstanceService} from './grid.service';
 import {GadgetFactory} from '../add-gadget/gadget-factory';
 
-/*
- this class handles the dynamic creation of components
+/**
+ * this class handles the dynamic creation of components
+ *
+ * 动态组件, 各个 卡片组件实例 的 占位符
  */
-
 @Component({
     selector: 'app-grid-cell',
     template: ''

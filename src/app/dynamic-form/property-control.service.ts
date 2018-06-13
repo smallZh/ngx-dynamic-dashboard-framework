@@ -11,6 +11,11 @@ export class PropertyControlService {
     }
 
 
+    /**
+     * 从属性配置页  生成 表单组
+     * @param propertyPages
+     * @returns {FormGroup}
+     */
     toFormGroupFromPP(propertyPages: any[]) {
 
         const group: any = {};

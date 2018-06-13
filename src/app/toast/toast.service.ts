@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Message} from './message';
 
+/**
+ * toast 提醒服务
+ */
 @Injectable()
 export class ToastService {
 

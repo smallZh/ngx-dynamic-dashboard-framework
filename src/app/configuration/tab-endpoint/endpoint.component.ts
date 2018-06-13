@@ -1,5 +1,6 @@
 /**
  * Created by jayhamilton on 5/31/17.
+ * http接口配置 组件
  */
 import {Component} from '@angular/core';
 import {EndPoint} from './endpoint.model';
@@ -16,8 +17,10 @@ import {ToastService} from '../../toast/toast.service';
 })
 export class EndPointComponent {
 
+    //http接口 配置对象
     endPoints: EndPoint[];
 
+    //默认当前选中的 http接口
     currentEndPoint: EndPoint = new EndPoint('', '', '', '', '', '',
         '', '', '');
 
@@ -33,10 +36,18 @@ export class EndPointComponent {
         });
     }
 
+    /**
+     * 设置当前选中的 EndPoint
+     * @param endPoint
+     */
     setSelectedEndPoint(endPoint: EndPoint) {
         this.currentEndPoint = endPoint;
     }
 
+    /**
+     * 新增 一个 EndPoint
+     * @param endPoint
+     */
     createEndPoint(endPoint: EndPoint) {
 
         if (!this.endPoints) {
@@ -88,6 +99,9 @@ export class EndPointComponent {
         }
     }
 
+    /**
+     * 清除全部的 EndPoint
+     */
     clearPersistantStore() {
 
         // delete the currently persisted structure
@@ -99,6 +113,9 @@ export class EndPointComponent {
         });
     }
 
+    /**
+     * 保存 全部的 EndPoint, 这里 采用的 是 全部新增,全部删除
+     */
     persistInMemoryDataToStore() {
 
         const endpointModel = {

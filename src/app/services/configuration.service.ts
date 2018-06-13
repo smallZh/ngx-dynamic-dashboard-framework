@@ -187,6 +187,11 @@ export class ConfigurationService {
      improved. For now the utility of this approach allows the configuration service to capture the property page change in a way
      that allows us to update the persisted board model.
      */
+    /**
+     * 更新一个 组件的 配置项
+     * @param gadgetConfig
+     * @param instanceId
+     */
     notifyGadgetOnPropertyChange(gadgetConfig: string, instanceId: number) {
 
         this.savePropertyPageConfigurationToStore(gadgetConfig, instanceId);
@@ -197,6 +202,11 @@ export class ConfigurationService {
         this.currentModel = _currentModel;
     }
 
+    /**
+     * 存储卡片组件 的配置项
+     * @param gadgetConfig
+     * @param instanceId
+     */
     savePropertyPageConfigurationToStore(gadgetConfig: string, instanceId: number) {
 
         this.currentModel.rows.forEach(row => {
@@ -226,6 +236,12 @@ export class ConfigurationService {
 
     }
 
+    /**
+     * 更新 卡片 组件中 的配置项的值
+     * @param updatedProperties
+     * @param gadget
+     * @param instanceId
+     */
     updateProperties(updatedProperties: any, gadget: any, instanceId: number) {
 
         const updatedPropsObject = JSON.parse(updatedProperties);

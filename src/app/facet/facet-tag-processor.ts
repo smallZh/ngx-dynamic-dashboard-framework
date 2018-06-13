@@ -3,12 +3,17 @@ import {Facet, Tag} from './facet-model';
 export class FacetTagProcessor {
 
     facet_tags: Array<Facet> = [];
+    //全部可用的 卡片组件列表
     objectList: any[];
 
     constructor(objectList: any[]) {
         this.objectList = objectList;
     }
 
+    /**
+     * 获取 卡片组件的 标签
+     * @returns {Array<Facet>}
+     */
     getFacetTags() {
 
         const me = this;
@@ -21,6 +26,10 @@ export class FacetTagProcessor {
         return this.facet_tags;
     }
 
+    /***
+     * 格式化,并 更新 标签列表
+     * @param items
+     */
     formatAndUpdateTagList(items: any[]) {
 
         items.forEach(tag => {
@@ -54,6 +63,10 @@ export class FacetTagProcessor {
         });
     }
 
+    /**
+     * 创建 方面 和 其中 的标签
+     * @param tag
+     */
     createFacetAndAddItToTheFacetTagArray(tag: any) {
 
         const _tags: Array<Tag> = [];
@@ -67,11 +80,21 @@ export class FacetTagProcessor {
 
     }
 
+    /**
+     * 创建tag 标签
+     * @param tag
+     * @returns {Tag}
+     */
     createTag(tag) {
 
         return new Tag(tag);
     }
 
+
+    /**
+     * 使用 标签 更新 方面
+     * @param tag
+     */
     updateFacetWithTag(tag: any) {
 
         // find the facet and then add the tag or update the count
@@ -104,6 +127,11 @@ export class FacetTagProcessor {
         });
     }
 
+    /**
+     * 将 名字首字母大写
+     * @param value
+     * @returns {string}
+     */
     capitalize(value: string) {
         return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
     }
